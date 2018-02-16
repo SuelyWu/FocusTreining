@@ -1,0 +1,38 @@
+
+
+
+PENSAR...
+  Usar Map<Integer, List<Componente>> para dividir os conteudos em colunas
+  Usar List<List<Componente>> para dividir os conteudos em linhas
+
+
+
+
+Parser - usado pelo main
+  recebe file para tratar
+  faz leitura do arquivo
+  identificar tipo de configuracao
+  mandar configuracao correta para fazer parser
+  printa
+
+
+
+
+Configuracao <<interface>>
+
+ConfiguracoesConcretas
+  ter uma list de componentes que define as colunas
+  configuracoes de files (definicao de colunas)
+
+
+
+Componente <<interface>>
+
+ComponentesConcretas
+  componentes concretas que serao usadas por modelo
+  DEVE VALIDAR A ENTRADA, SE É DO TIPO DEFINIDO
+
+
+FabricaDeComponente
+  tem um factoryMethod para criar componente, passando um parametro que nao seja classe de componente concreta
+  vai ser usado por configuracoes
