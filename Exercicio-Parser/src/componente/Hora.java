@@ -2,7 +2,7 @@ package componente;
 
 import java.time.LocalTime;
 
-public class Hora {
+public class Hora implements Componente{
 
     private LocalTime hora;
 

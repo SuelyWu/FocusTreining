@@ -1,4 +1,5 @@
-import java.io.BufferedReader;
+import configuracao.Configuracao1;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,13 +9,13 @@ public class Main {
 
 
         File file = new File("testParser.txt");
-        Modelo1 modelo1 = new Modelo1(file);
+        Configuracao1 configuracao1 = new Configuracao1();
         try {
-            modelo1.ler();
+            configuracao1.ler();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        modelo1.imprimir();
+        configuracao1.imprimir();
 
 
 

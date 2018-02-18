@@ -1,6 +1,6 @@
 package componente;
 
-public class Nome {
+public class Nome implements Componente {
 
     private String nome;
 

@@ -18,7 +18,7 @@ Parser - usado pelo main
 
 
 
-Configuracao <<interface>>
+configuracao.Configuracao <<interface>>
 
 ConfiguracoesConcretas
   ter uma list de componentes que define as colunas
@@ -30,7 +30,7 @@ Componente <<interface>>
 
 ComponentesConcretas
   componentes concretas que serao usadas por modelo
-  DEVE VALIDAR A ENTRADA, SE É DO TIPO DEFINIDO
+  DEVE VALIDAR A ENTRADA, SE ï¿½ DO TIPO DEFINIDO
 
 
 FabricaDeComponente
