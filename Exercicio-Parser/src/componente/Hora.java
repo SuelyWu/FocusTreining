@@ -10,7 +10,10 @@ public class Hora implements Componente{
         String [] s = stringHora.split(":");
         int hora = Integer.parseInt(s[0]);
         int min = Integer.parseInt(s[1]);
-        int seg = Integer.parseInt(s[2]);
+        int seg = 0;
+        if (s.length == 3) {
+            seg = Integer.parseInt(s[2]);
+        }
         this.hora = LocalTime.of(hora, min, seg);
     }
 

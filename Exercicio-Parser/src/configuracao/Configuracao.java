@@ -10,13 +10,17 @@ public class Configuracao {
 
     protected Conteudo conteudo;
 
+    public Configuracao(){
+        conteudo = new Conteudo();
+    }
+
     public void lerConteudo(List<String> linhasLidas) {
-        String s = linhasLidas.get(0);
-        conteudo.setIntConfig(1);
-        conteudo.setData(s.split("\t")[0]);
-        conteudo.setHora(s.split("\t")[1]);
-        conteudo.setNome(linhasLidas.get(1));
-        for (int i = 2; i < linhasLidas.size(); i++) {
+        conteudo.setIntConfig(Integer.parseInt(linhasLidas.get(0)));
+        String dataHora = linhasLidas.get(1);
+        conteudo.setData(dataHora.split("\t")[0]);
+        conteudo.setHora(dataHora.split("\t")[1]);
+        conteudo.setNome(linhasLidas.get(2));
+        for (int i = 3; i < linhasLidas.size(); i++) {
             List<String> linhaAtual = Arrays.asList(linhasLidas.get(i).split("\t"));
             for (int j = 0; j < linhaAtual.size(); j ++) {
                 String stringComponente = linhaAtual.get(j);

@@ -21,7 +21,6 @@ public class Conteudo {
         padrao.put(colunaNumber, componenteTipo);
         conteudo.put(colunaNumber, new LinkedList<>());
         qtdColuna++;
-        // se conseguir, verificar se compClass eh um componente
     }
 
     public void addComponente(int colunaNumber, String stringComponente) {

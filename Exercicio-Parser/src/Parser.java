@@ -1,6 +1,3 @@
-import componente.Data;
-import componente.Hora;
-import componente.Nome;
 import configuracao.Configuracao;
 import configuracao.FabricaConfiguracao;
 import exception.ParserException;
@@ -16,11 +13,11 @@ public class Parser {
     private File file;
     private final String path = "C:/Users/Focusnetworks/IdeaProjects/FocusTreining/Exercicio-Parser/src/";
 
-    public void setFile(String fileName) {
+    public void setFile(String fileName){
         this.file = new File(fileName);
     }
 
-    private boolean setConfiguracao() {
+    private int setConfiguracao() {
         try {
             reader = new BufferedReader(new FileReader(path + file.getName()));
             String a = reader.readLine();
@@ -29,21 +26,23 @@ public class Parser {
             FabricaConfiguracao fabricaConfiguracao = new FabricaConfiguracao();
             configuracao = fabricaConfiguracao.getConfiguracao(i);
 
-            return true;
+            return i;
         } catch (IOException e) {
             System.out.println("Arquivo não encontrado!");
         } catch (NumberFormatException e) {
-            System.out.println("Erro na formatação do arquivo!");
+            System.out.println("Configuração inexistente!");
         } catch (ParserException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
-        return false;
+        return -1;
 
     }
 
-    public void executar() {
+    public boolean executar() {
         List<String> list = new LinkedList<>();
-        if (setConfiguracao()) {
+        int intConfig = setConfiguracao();
+        list.add(String.valueOf(intConfig));
+        if (intConfig != -1) {
             try {
                 String str = reader.readLine();
                 while (str != null) {
@@ -55,7 +54,8 @@ public class Parser {
             } catch (IOException e) {
                 System.out.println(e);
             }
+            return true;
         }
-
+        return false;
     }
 }
