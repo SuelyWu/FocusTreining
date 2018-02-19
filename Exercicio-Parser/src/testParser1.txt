@@ -4,3 +4,9 @@ John Howard
 58	158.20	10/11/1980	FC3E3444D	8
 63	200.14	06/04/1991	ABC123EFG	7
 20	314.74	02/02/2010	DAC942FFF	4
+
+
+pode tirar as exceptions e utilizam apenas de processingexception
+usar formater (no parser  e no tostring)
+
+cuidado com a nomenclatura das classes, metodos, objetos

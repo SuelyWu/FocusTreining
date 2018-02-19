@@ -1,6 +1,5 @@
 import configuracao.Configuracao;
 import configuracao.FabricaConfiguracao;
-import exception.ParserException;
 
 import java.io.*;
 import java.util.LinkedList;
