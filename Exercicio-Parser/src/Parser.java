@@ -9,12 +9,12 @@ import java.io.*;
 
 public class Parser {
 
-    BufferedReader reader;
-    Configuracao configuracao;
-    Data data;
-    Hora hora;
-    Nome nome;
-    File file;
+    private BufferedReader reader;
+    private Configuracao configuracao;
+    private Data data;
+    private Hora hora;
+    private Nome nome;
+    private File file;
 
     public void setFile(File file) {
         this.file = file;
