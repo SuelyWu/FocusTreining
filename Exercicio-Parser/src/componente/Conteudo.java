@@ -7,30 +7,29 @@ import java.util.Map;
 
 public class Conteudo {
 
-    int qtdColuna = 0;
-    int qtdLinha = 0;
-    Map<Integer, Map<ComponenteTipo, List>> conteudo;
+    private int intConfig;
+    private Data data;
+    private Hora hora;
+    private Nome nome;
+    private Map<Integer, List<Componente>> conteudo = new HashMap<>();
+    private Map<Integer, ComponenteTipo> padrao = new HashMap<>();
 
-    public Map getConteudo() {
-        return this.conteudo;
-    }
+    private int qtdColuna = 0;
+    private int qtdLinha = 0;
 
     public void addPadrao(int colunaNumber, ComponenteTipo componenteTipo) {
-        Map m = new HashMap();
-        m.put(componenteTipo, new LinkedList<>());
-        conteudo.put(colunaNumber, m);
+        padrao.put(colunaNumber, componenteTipo);
+        conteudo.put(colunaNumber, new LinkedList<>());
         qtdColuna++;
         // se conseguir, verificar se compClass eh um componente
     }
 
     public void addComponente(int colunaNumber, String stringComponente) {
-        Map<ComponenteTipo, List> map = conteudo.get(colunaNumber);
-        ComponenteTipo c = (ComponenteTipo) map.keySet().toArray()[0];
-        List list = map.get(c);
+        List<Componente> newList = conteudo.get(colunaNumber);
+        ComponenteTipo componenteTipo = padrao.get(colunaNumber);
         FabricaComponente fabricaComponente = new FabricaComponente();
-        list.add(fabricaComponente.getComponente(c, stringComponente));
-        map.put(c, list);
-        conteudo.put(colunaNumber, map);
+        newList.add(fabricaComponente.getComponente(componenteTipo, stringComponente));
+        conteudo.put(colunaNumber, newList);
 
         if (colunaNumber == 1) {
             qtdLinha++;
@@ -38,26 +37,38 @@ public class Conteudo {
     }
 
     public void imprimir() {
+        System.out.println(intConfig);
+        System.out.println(data + "\t" + hora);
+        System.out.println(nome);
 
-        ComponenteTipo c = (ComponenteTipo) conteudo.get(1).keySet().toArray()[0];
-        conteudo.get(1).get(c).size();
-
-
-        for (int i = 0; i < qtdLinha; i++) {
-            for (int j = 0; j < qtdColuna; j++) {
-
+        for (int linhaAtual = 0; linhaAtual < qtdLinha; linhaAtual++) {
+            for (int colunaAtual = 0; colunaAtual < qtdColuna; colunaAtual++) {
+                List<Componente> listColunaAtual = conteudo.get(colunaAtual+1);
+                Componente compAtual = listColunaAtual.get(linhaAtual);
+                System.out.print(compAtual);
+                if (colunaAtual == qtdColuna-1) {
+                    System.out.println();
+                } else {
+                    System.out.print("\t");
+                }
             }
-
-
-
-
         }
-
-
-
-
     }
 
+    public void setIntConfig(int intConfig) {
+        this.intConfig = intConfig;
+    }
 
+    public void setData(String stringData) {
+        this.data = new Data(stringData);
+    }
+
+    public void setHora(String stringHora) {
+        this.hora = new Hora(stringHora);
+    }
+
+    public void setNome(String stringNome) {
+        this.nome = new Nome(stringNome);
+    }
 
 }

@@ -13,24 +13,23 @@ public class Parser {
 
     private BufferedReader reader;
     private Configuracao configuracao;
-    private Data data;
-    private Hora hora;
-    private Nome nome;
     private File file;
+    private final String path = "C:/Users/Focusnetworks/IdeaProjects/FocusTreining/Exercicio-Parser/src/";
 
-    public void setFile(File file) {
-        this.file = file;
+    public void setFile(String fileName) {
+        this.file = new File(fileName);
     }
 
-    private void setConfiguracao() {
+    private boolean setConfiguracao() {
         try {
-            reader = new BufferedReader(new FileReader(file.getName()));
+            reader = new BufferedReader(new FileReader(path + file.getName()));
             String a = reader.readLine();
             int i = Integer.parseInt(a);
 
             FabricaConfiguracao fabricaConfiguracao = new FabricaConfiguracao();
             configuracao = fabricaConfiguracao.getConfiguracao(i);
 
+            return true;
         } catch (IOException e) {
             System.out.println("Arquivo não encontrado!");
         } catch (NumberFormatException e) {
@@ -38,27 +37,25 @@ public class Parser {
         } catch (ParserException e) {
             System.out.println(e);
         }
+        return false;
+
     }
 
     public void executar() {
         List<String> list = new LinkedList<>();
-        setConfiguracao();
-        try {
-            String str = reader.readLine();
-            while (str != null) {
-                list.add(str);
-                str = reader.readLine();
+        if (setConfiguracao()) {
+            try {
+                String str = reader.readLine();
+                while (str != null) {
+                    list.add(str);
+                    str = reader.readLine();
+                }
+                configuracao.lerConteudo(list);
+                configuracao.imprimir();
+            } catch (IOException e) {
+                System.out.println(e);
             }
-        } catch (IOException e) {
-
         }
 
-
-       // configuracao.lerConteudo();
     }
-
-    public void imprimir() {
-        configuracao.imprimir();
-    }
-
 }

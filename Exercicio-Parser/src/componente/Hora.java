@@ -17,12 +17,21 @@ public class Hora implements Componente{
     @Override
     public String toString() {
         String sHora, sMin, sSeg;
-        if (hora.getHour() == 0) sHora = "00";
-        else sHora = String.valueOf(hora.getHour());
-        if (hora.getMinute() == 0) sMin = "00";
-        else sMin = String.valueOf(hora.getMinute());
-        if (hora.getSecond() == 0) sSeg = "00";
-        else sSeg = String.valueOf(hora.getSecond());
+        if (hora.getHour() == 0) {
+            sHora = "00";
+        } else {
+            sHora = String.valueOf(hora.getHour());
+        }
+        if (hora.getMinute() == 0) {
+            sMin = "00";
+        } else {
+            sMin = String.valueOf(hora.getMinute());
+        }
+        if (hora.getSecond() == 0) {
+            sSeg = "00";
+        } else {
+            sSeg = String.valueOf(hora.getSecond());
+        }
         return sHora + ":" + sMin + ":" + sSeg;
     }
 }

@@ -2,29 +2,34 @@ import componente.Conteudo;
 import componente.Data;
 import componente.Hora;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
 
-    static Map<Class, List> map = new HashMap<>();
+    public static void main(String[] args) throws FileNotFoundException {
 
-    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Parser parser = new Parser();
+        System.out.print("Digite o nome do arquivo a abrir: ");
+        String fileName = scanner.nextLine();
+
+        System.out.println();
+        parser.setFile(fileName);
+        parser.executar();
 
 
 
-        map.put(Data.class, null);
-        addPadrao(Data.class);
 
 
 
-
-
-    }
-
-    public static void addPadrao(Class c) {
-        map.put(c, null);
     }
 
 

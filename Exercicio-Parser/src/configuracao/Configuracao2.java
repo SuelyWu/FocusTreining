@@ -11,7 +11,7 @@ public class Configuracao2 implements Configuracao {
 
 
     @Override
-    public void lerConteudo(List<String> list) throws IOException {
+    public void lerConteudo(List<String> list)  {
 
     }
 

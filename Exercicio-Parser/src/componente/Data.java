@@ -27,11 +27,15 @@ public class Data implements Componente{
     public String toString() {
         String sDia = "", sMes = "", sAno = "";
 
-        if (data.getDayOfMonth() < 10) sDia += "0";
+        if (data.getDayOfMonth() < 10) {
+            sDia += "0";
+        }
         sDia += String.valueOf(data.getDayOfMonth());
-        if (data.getMonthValue() < 10) sMes += "0";
+        if (data.getMonthValue() < 10) {
+            sMes += "0";
+        }
         sMes += String.valueOf(data.getMonthValue());
-        sAno += String .valueOf(data.getYear());
+        sAno += String.valueOf(data.getYear());
 
 
         return sDia + "/" + sMes + "/" + sAno;
