@@ -4,92 +4,50 @@ import componente.*;
 import componente.Double;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Configuracao1 implements Configuracao {
 
-    File file;
-
-    // definir como compoe uma linha (as colunas, componentes de uma linha)
+    private Data data;
+    private Hora hora;
+    private Nome nome;
+    private Conteudo conteudo;
+    // definir como compoe uma conteudo (as colunas, componentes de uma conteudo)
     // int double data codigo int
-    Map<Integer, List> conteudo;
+    //Map<Integer, List> conteudo;
     // Map<Integer, Map<ComponenteTipo, List<Componente>> conteudo
-    int qtdColunas = 5;
-    int qtdLinhas = 0;
 
     public Configuracao1() {
-        conteudo = new HashMap<>();
-        conteudo.put(1, new LinkedList<Inteiro>());
-        conteudo.put(2, new LinkedList<Double>());
-        conteudo.put(3, new LinkedList<Data>());
-        conteudo.put(4, new LinkedList<Codigo>());
-        conteudo.put(5, new LinkedList<Inteiro>());
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    public void ler () throws IOException{
-        // processar as linhas do arquivo
-        BufferedReader reader = new BufferedReader(new FileReader(this.file.getName()));
-        reader.readLine();
-        reader.readLine();
-        reader.readLine();
-        String linhaAtual = reader.readLine();
-
-        while (linhaAtual != null && !linhaAtual.equals("\n")) {
-            qtdLinhas++;
-            String[] linha = linhaAtual.split("\t");
-            List list = conteudo.get(1);
-            list.add(new Inteiro(linha[0]));
-            conteudo.put(1, list);
-
-            list.getClass();
-
-            list = conteudo.get(2);
-            list.add(new Double(linha[1]));
-            conteudo.put(2, list);
-            list = conteudo.get(3);
-            list.add(new Data(linha[2]));
-            conteudo.put(3, list);
-            list = conteudo.get(4);
-            list.add(new Codigo(linha[3]));
-            conteudo.put(4, list);
-            list = conteudo.get(5);
-            list.add(new Inteiro(linha[4]));
-            conteudo.put(5, list);
-            linhaAtual = reader.readLine();
-        }
-
-
-
+        conteudo.addPadrao(1, ComponenteTipo.INTEIRO);
+        conteudo.addPadrao(2, ComponenteTipo.DOUBLE);
+        conteudo.addPadrao(3, ComponenteTipo.DATA);
+        conteudo.addPadrao(4, ComponenteTipo.CODIGO);
+        conteudo.addPadrao(5, ComponenteTipo.INTEIRO);
 
     }
 
     @Override
-    public void lerConteudo() {
-
+    public void lerConteudo(List<String> list) throws IOException{
+        String s = list.get(1);
+        data = new Data(s.split("\t")[0]);
+        hora = new Hora(s.split("\t")[1]);
+        nome = new Nome(list.get(2));
+        for (int i = 3; i < list.size(); i++) {
+            List<String> linhaAtual = Arrays.asList(list.get(i).split("\t"));
+            for (int j = 0; j < linhaAtual.size(); j ++) {
+                String stringComponente = linhaAtual.get(j);
+                conteudo.addComponente(j, stringComponente);
+            }
+        }
     }
 
     public void imprimir() {
         // imprimir os dados coletados
 
         System.out.println("1");
-
-        for (int i = 0; i < qtdLinhas; i++){
-            for (int j = 0; j < qtdColunas; j++) {
-                List list = conteudo.get(j+1);
-                System.out.print(list.get(i));
-                if (j != qtdColunas - 1) {
-                    System.out.print("\t");
-                }
-            }
-            System.out.println();
-        }
+        System.out.println(data + "\t" + hora);
+        System.out.println(nome);
+        conteudo.imprimir();
 
     }
 

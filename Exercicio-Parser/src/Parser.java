@@ -6,6 +6,8 @@ import configuracao.FabricaConfiguracao;
 import exception.ParserException;
 
 import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Parser {
 
@@ -39,10 +41,20 @@ public class Parser {
     }
 
     public void executar() {
+        List<String> list = new LinkedList<>();
+        setConfiguracao();
+        try {
+            String str = reader.readLine();
+            while (str != null) {
+                list.add(str);
+                str = reader.readLine();
+            }
+        } catch (IOException e) {
+
+        }
 
 
-
-        configuracao.lerConteudo();
+       // configuracao.lerConteudo();
     }
 
     public void imprimir() {

@@ -1,4 +1,4 @@
 package componente;
 
-public interface Componente {
+public interface Componente{
 }
