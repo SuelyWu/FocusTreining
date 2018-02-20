@@ -1,0 +1,60 @@
+Criação de uma loja virtual com os requisitos:
+
+1. Listagem de produtos
+
+2. Adição de produtos ao carrinho de compras (produto e quantidade)
+
+3. Visualização do carrinho de compras
+
+4. Checkout:
+
+  4.1. Identificação do cliente (email... precadastrado)
+
+  4.2. Forma de pagamento
+
+    4.2.1. Se cartão, receber o número do cartão e quantidade de parcelas
+
+    4.2.2. Se boleto, imprimir um número randômico, para simular o código de barras
+
+  4.3. Finalização da compra
+
+
+RACIOCINIO INICIAL
+
+Uma classe Produto
+	- nomeProduto: String
+	- precoProduto: double
+	-
+Uma classe Armazem para armazenar produtos pre cadastrados
+	- armazem: Map<ProdutoTipo, List<Produto>> 
+	> listarProdutos, decrementarProduto, incrementarProduto
+Uma classe Cliente
+	- nomeCliente: string
+	- endereco: string
+	- emailCliente: string
+	- idCliente: int
+	> equals
+Uma classe BancoCliente para armazenar clientes pre cadastrados
+	- clientes: List<Cliente> 
+	> validarCliente
+Uma classe CarrinhoCompra 
+	- itens: List<ItemCompra>
+	> addItem, delItem, listarItens, checkout
+Uma classe ItemCompra para representar produto selecionado e qtd numa compra
+	- produto: Produto
+	- qtd: int
+	- totalItem: double
+Uma classe Compra para representar uma compra finalizada
+	- carrinhoCompra
+	- formaPagamento
+Uma interface FormaPagamento
+	Uma classe PagCartao
+		- cartao: Cartao
+		- qtdParcelas: int
+		> validarNumCartao, setNumCartao, setQtdParcelas
+	Uma classe PagBoleto
+		- codigoBarras: int
+		> gerarCodBarras
+Uma classe Printer para imprimir sout 
+	- print(List<List<Produto>>) (List<ItemCompra) 
+
