@@ -19,14 +19,67 @@ Criação de uma loja virtual com os requisitos:
   4.3. Finalização da compra
 
 
+
+
+
+RACIOCINIO 21022018
+
+Uma classe Produto
+    - categoria : categoria
+    - id : int
+	- nomeProduto: String
+	- precoProduto: double
+	> getId, getCategoria, getPreco
+Uma classe Armazem para armazenar produtos pre cadastrados
+	- armazem: Map<Categoria, List<Produto>>
+	> getProdutos, getEstoqueProduto, decrementarProduto, incrementarProduto, hasProdSuficiente
+Uma classe Cliente
+	- nomeCliente: string
+	- id: int
+	- carrinhoCompra
+	> getId, equals
+Uma classe BancoCliente para armazenar clientes pre cadastrados
+	- clientes: List<Cliente>
+	> hasCliente, addCliente, gerarId
+Uma classe CarrinhoCompra
+	- itens: List<ItemCompra>
+	> addItem, delItem, getItens, finalizarCompra !!a implementar!!
+Uma classe ItemCompra para representar produto selecionado e qtd numa compra
+	- produto: Categoria
+	- qtd: int
+	> incrementarItem, decrementarItem, getTotalItem, equals, getIdProduto
+Uma classe Compra para representar uma compra finalizada
+    - cliente
+	- carrinhoCompra
+	- pagamento
+Uma classe Pagamento
+    - total : double
+    - qtdParcela: int
+    - valorParcelas: List<Double>
+    - parcPagas : List<Boolean>
+	Uma classe PagCartao
+		- cartao: Cartao
+		> validarNumCartao, setNumCartao, setQtdParcelas
+	Uma classe PagBoleto
+		- listCodBarras : List<CodigoBarra>
+		> gerarCodBarras
+Uma classe CodigoBarra
+    - 5 partes : long
+Uma classe Printer para imprimir sout
+	- print(List<List<Produto>>) (List<ItemCompra)
+
+
+
+
+
 RACIOCINIO INICIAL
 
 Uma classe Produto
 	- nomeProduto: String
 	- precoProduto: double
-	-
+	>
 Uma classe Armazem para armazenar produtos pre cadastrados
-	- armazem: Map<ProdutoTipo, List<Produto>> 
+	- armazem: Map<Categoria, List<Produto>>
 	> listarProdutos, decrementarProduto, incrementarProduto
 Uma classe Cliente
 	- nomeCliente: string
@@ -37,17 +90,17 @@ Uma classe Cliente
 Uma classe BancoCliente para armazenar clientes pre cadastrados
 	- clientes: List<Cliente> 
 	> validarCliente
-Uma classe CarrinhoCompra 
+Uma classe CarrinhoCompra
 	- itens: List<ItemCompra>
 	> addItem, delItem, listarItens, checkout
 Uma classe ItemCompra para representar produto selecionado e qtd numa compra
-	- produto: Produto
+	- produto: Categoria
 	- qtd: int
 	- totalItem: double
 Uma classe Compra para representar uma compra finalizada
 	- carrinhoCompra
-	- formaPagamento
-Uma interface FormaPagamento
+	- pagamento
+Uma classe Pagamento
 	Uma classe PagCartao
 		- cartao: Cartao
 		- qtdParcelas: int
@@ -57,4 +110,12 @@ Uma interface FormaPagamento
 		> gerarCodBarras
 Uma classe Printer para imprimir sout 
 	- print(List<List<Produto>>) (List<ItemCompra) 
+
+
+
+
+
+
+
+
 

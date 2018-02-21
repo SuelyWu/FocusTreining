@@ -1,37 +1,67 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Armazem {
-    private Map<ProdutoTipo, List<Produto>> armazem;
+    private Map<Categoria, Map<Integer, List<Produto>>> armazem;
+
 
     public Armazem(){
         armazem = new HashMap<>();
+        initialize();
     }
 
-    public void decrementarProduto(ProdutoTipo produtoTipo) {
-        List<Produto> produtoList = armazem.get(produtoTipo);
-        produtoList.remove(0);
-        armazem.put(produtoTipo, produtoList);
+    public Map getProdutos() {
+        return Collections.unmodifiableMap(armazem);
     }
 
-    public void incrementarProduto(Produto produto) {
-        ProdutoTipo produtoTipo = produto.getProdutoTipo();
-        List<Produto> produtoList = armazem.get(produtoTipo);
-        produtoList.add(produto);
-        armazem.put(produtoTipo, produtoList);
+    private int getEstoqueProduto(Produto produto) {
+        Map<Integer, List<Produto>> map = armazem.get(produto.getCategoria());
+        List<Produto> list = map.get(produto.getId());
+        return list.size();
     }
 
-    public List getListaProdutos() {
-        List lists = new LinkedList<>();
-        for (ProdutoTipo tipo : ProdutoTipo.values()) {
-            List listProduto = armazem.get(tipo);
-            lists.addAll(listProduto);
+    public void decrementarProduto(Produto produto) {
+        Categoria categoria = produto.getCategoria();
+        int id = produto.getId();
+        Map<Integer, List<Produto>> map = armazem.get(categoria);
+        List<Produto> list = map.get(id);
+        if (list != null) {
+            list.remove(produto);
+            map.put(id, list);
+            armazem.put(categoria, map);
         }
-        return lists;
     }
 
+    private void incrementarProduto(Produto produto) {
+        Categoria categoria = produto.getCategoria();
+        int id = produto.getId();
+        Map<Integer, List<Produto>> map = armazem.get(categoria);
+        List<Produto> list = map.get(id);
+        if (list == null) {
+            list = new LinkedList<>();
+        }
+        list.add(produto);
+        map.put(id, list);
+        armazem.put(categoria, map);
+    }
+
+
+
+    public boolean hasProdSuficiente(Produto produto, int qtdSolicitada) {
+        return getEstoqueProduto(produto) >= qtdSolicitada;
+    }
+
+    private void initialize() {
+        List<Produto> produtoList = new LinkedList<>();
+        produtoList.add(new Produto(Categoria.MOVEL, 1001, "mesa redonda", 300));
+        produtoList.add(new Produto(Categoria.MOVEL, 1002, "mesa retangular", 400));
+        produtoList.add(new Produto(Categoria.ROUPA, 2001, "camiseta branca", 20));
+        produtoList.add(new Produto(Categoria.ROUPA, 2002, "camiseta preta", 20));
+        for (Produto produto : produtoList) {
+            for (int i = 0; i < 20; i++) {
+                incrementarProduto(produto);
+            }
+        }
+    }
 
 
 }

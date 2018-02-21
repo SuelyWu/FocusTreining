@@ -5,14 +5,15 @@ public class Cliente {
 
     public Cliente(String nome, int id) {
         this.nome = nome;
-        this.id = id;
+        this.id = id; // numero random de 5 digitos
     }
 
-
+    protected int getId() {
+        return this.id;
+    }
     // alterar equals
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(int id) {
+        return this.id == id;
     }
 }
