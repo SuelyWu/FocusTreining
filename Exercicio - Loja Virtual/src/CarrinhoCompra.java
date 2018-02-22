@@ -37,14 +37,14 @@ public class CarrinhoCompra {
         return false;
     }
 
-    public List<ItemCompra> getItens() {
+    public List getItens() {
         return Collections.unmodifiableList(itens);
     }
 
     public double getTotalCarrinho() {
          double total = 0;
          for (ItemCompra item : itens) {
-             total += item.getTotalItem();
+             total += item.getSubtotal();
          }
          return total;
     }

@@ -26,7 +26,7 @@ RACIOCINIO 21022018
 
 Uma classe Produto
     - categoria : categoria
-    - id : int
+    - codigo : int
 	- nomeProduto: String
 	- precoProduto: double
 	> getId, getCategoria, getPreco
@@ -35,7 +35,7 @@ Uma classe Armazem para armazenar produtos pre cadastrados
 	> getProdutos, getEstoqueProduto, decrementarProduto, incrementarProduto, hasProdSuficiente
 Uma classe Cliente
 	- nomeCliente: string
-	- id: int
+	- codigo: int
 	- carrinhoCompra
 	> getId, equals
 Uma classe BancoCliente para armazenar clientes pre cadastrados

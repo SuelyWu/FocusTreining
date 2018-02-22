@@ -21,15 +21,29 @@ public class ItemCompra {
         return true;
     }
 
-    public double getTotalItem() {
+    public double getProdPreco() {
+        return produto.getPreco();
+    }
+
+    public String getProdNome() {
+        return produto.getNome();
+    }
+
+    public int getQtd() {
+        return qtd;
+    }
+
+    public double getSubtotal() {
         return qtd * produto.getPreco();
     }
 
     public boolean equals(ItemCompra itemCompra) {
-        return this.produto.getId() == itemCompra.getIdProduto();
+        return this.produto.getCod() == itemCompra.getCodProduto();
     }
 
-    private int getIdProduto() {
-        return this.produto.getId();
+    private int getCodProduto() {
+        return this.produto.getCod();
     }
+
+
 }

@@ -13,34 +13,42 @@ public class Armazem {
         return Collections.unmodifiableMap(armazem);
     }
 
+    private Map getProdEmCategoria(Produto produto) {
+        Map map = armazem.get(produto.getCategoria());
+        if (map == null) {
+            map = new HashMap();
+        }
+        return map;
+    }
+
     private int getEstoqueProduto(Produto produto) {
         Map<Integer, List<Produto>> map = armazem.get(produto.getCategoria());
-        List<Produto> list = map.get(produto.getId());
+        List<Produto> list = map.get(produto.getCod());
         return list.size();
     }
 
     public void decrementarProduto(Produto produto) {
         Categoria categoria = produto.getCategoria();
-        int id = produto.getId();
+        int cod = produto.getCod();
         Map<Integer, List<Produto>> map = armazem.get(categoria);
-        List<Produto> list = map.get(id);
+        List<Produto> list = map.get(cod);
         if (list != null) {
             list.remove(produto);
-            map.put(id, list);
+            map.put(cod, list);
             armazem.put(categoria, map);
         }
     }
 
     private void incrementarProduto(Produto produto) {
         Categoria categoria = produto.getCategoria();
-        int id = produto.getId();
+        int cod = produto.getCod();
         Map<Integer, List<Produto>> map = armazem.get(categoria);
-        List<Produto> list = map.get(id);
+        List<Produto> list = map.get(cod);
         if (list == null) {
             list = new LinkedList<>();
         }
         list.add(produto);
-        map.put(id, list);
+        map.put(cod, list);
         armazem.put(categoria, map);
     }
 
