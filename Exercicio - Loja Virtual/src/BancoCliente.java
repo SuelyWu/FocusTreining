@@ -10,7 +10,7 @@ public class BancoCliente {
 
     public BancoCliente() {
         clientes = new LinkedList<>();
-        initialize();// add alguns clientes aqui
+        initialize();
     }
 
     public boolean hasCliente(int clienteId) {

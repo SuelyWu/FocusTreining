@@ -34,7 +34,9 @@ public class CarrinhoCompra {
         }
     }
 
-    public boolean delItem(Produto produto, int qtd) {
+
+    // nao deleta item na qtd correta
+    private boolean delItem(Produto produto, int qtd) {
         ItemPedido itemDel = new ItemPedido(produto, qtd);
         List<ItemPedido> matchedItens = itens.stream().filter(item -> item.equals(itemDel)).collect(Collectors.toList());
         if (!matchedItens.isEmpty()) {
@@ -53,6 +55,15 @@ public class CarrinhoCompra {
 
     public List getItens() {
         return Collections.unmodifiableList(itens);
+    }
+
+    public Produto getProdItensByNome(String produtoNome) {
+        List matchedItem = itens.stream().filter(item -> item.getProdNome().equalsIgnoreCase(produtoNome)).collect(Collectors.toList());
+        if (matchedItem.isEmpty()) {
+            return null;
+        }
+        ItemPedido itemPedido = (ItemPedido) matchedItem.get(0);
+        return itemPedido.getProduto();
     }
 
     public double getTotalCarrinho() {

@@ -1,4 +1,5 @@
 public class ItemPedido {
+
     private ProdutoTipo produtoTipo;
     private Produto produto;
     private int qtd;
@@ -39,6 +40,10 @@ public class ItemPedido {
         return qtd * produto.getPreco();
     }
 
+    public Produto getProduto() {
+        return new Produto(produtoTipo, getProdNome(), getProdPreco());
+    }
+
     public boolean equals(ItemPedido itemPedido) {
         return this.produto.getNome().equalsIgnoreCase(itemPedido.getProdutoNome());
     }
@@ -47,9 +52,6 @@ public class ItemPedido {
         return this.produto.getNome();
     }
 
-    public Produto getProduto() {
-        return new Produto(produtoTipo, getProdNome(), getProdPreco());
-    }
 
 
 }

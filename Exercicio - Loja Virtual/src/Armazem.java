@@ -9,34 +9,6 @@ public class Armazem {
         initialize();
     }
 
-    public Map getProdutos() {
-        return Collections.unmodifiableMap(armazem);
-    }
-
-    private int getEstoqueProduto(Produto produto) {
-        List<Produto> list = armazem.get(produto.getProdutoTipo());
-        return list.size();
-    }
-
-    public Produto getProdutoByNome(String produtoNome) {
-        List listTipoExistente = Arrays.asList(armazem.keySet().toArray());
-        for (int i = 0; i < listTipoExistente.size(); i++) {
-            ProdutoTipo produtoTipo = (ProdutoTipo)listTipoExistente.get(i);
-            List listProd = armazem.get(produtoTipo);
-            for (int j = 0; j < listProd.size(); j++) {
-                Produto produto = (Produto) listProd.get(j);
-                if (produto.getNome().equalsIgnoreCase(produtoNome)) {
-                    return produto;
-                }
-            }
-        }
-        return null;
-    }
-
-    public boolean hasProdSuficiente(Produto produto, int qtdSolicitada) {
-        return getEstoqueProduto(produto) >= qtdSolicitada;
-    }
-
     private void initialize() {
         List<Produto> produtoList = new LinkedList<>();
         produtoList.add(new Produto(ProdutoTipo.MESA_REDONDA, "mesa redonda", 300));
@@ -60,6 +32,11 @@ public class Armazem {
         armazem.put(produtoTipo, list);
     }
 
+    private int getEstoqueProduto(Produto produto) {
+        List<Produto> list = armazem.get(produto.getProdutoTipo());
+        return list.size();
+    }
+
     public void decrementarProduto(Produto produto, int qtd) {
         ProdutoTipo produtoTipo = produto.getProdutoTipo();
 
@@ -71,5 +48,30 @@ public class Armazem {
         armazem.put(produtoTipo, list);
 
     }
+
+    public Map getProdutos() {
+        return Collections.unmodifiableMap(armazem);
+    }
+
+    public Produto getProdutoByNome(String produtoNome) {
+        List listTipoExistente = Arrays.asList(armazem.keySet().toArray());
+        for (int i = 0; i < listTipoExistente.size(); i++) {
+            ProdutoTipo produtoTipo = (ProdutoTipo)listTipoExistente.get(i);
+            List listProd = armazem.get(produtoTipo);
+            for (int j = 0; j < listProd.size(); j++) {
+                Produto produto = (Produto) listProd.get(j);
+                if (produto.getNome().equalsIgnoreCase(produtoNome)) {
+                    return produto;
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean hasProdSuficiente(Produto produto, int qtdSolicitada) {
+        return getEstoqueProduto(produto) >= qtdSolicitada;
+    }
+
+
 
 }

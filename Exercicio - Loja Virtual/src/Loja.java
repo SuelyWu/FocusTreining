@@ -81,38 +81,6 @@ public class Loja {
         sessaoVerCarrinho();
     }
 
-    private Cliente receberClienteValido() {
-        printer.print("Digite seu id: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        while (!bancoCliente.hasCliente(id)) {
-            printer.print("Erro! Digite seu id novamente: ");
-            id = Integer.parseInt(scanner.nextLine());
-        }
-        return bancoCliente.getClienteById(id);
-    }
-
-    private OpcaoPagamento escolherTipoPag() {
-        int opcao = receberOpcaoValida(2, "Escolha um tipo de pagamento:\n1-Boleto\n2-Cartão");
-        if (opcao==1) return OpcaoPagamento.BOLETO;
-        if (opcao==2) return OpcaoPagamento.CARTAO;
-        return null;
-    }
-
-    private Map coletaArgPagCartao() {
-        Map argPagCartao = new HashMap();
-        printer.print("Digite o número do cartão: ");
-        String numCartao = scanner.nextLine();
-        printer.print("Digite a quantidade de parcelas: ");
-        int qtdParcelas = Integer.parseInt(scanner.nextLine());
-        argPagCartao.put(String.class, numCartao);
-        argPagCartao.put(Integer.class, qtdParcelas);
-        return argPagCartao;
-    }
-
-    private void imprimirBoleto(Pedido pedido) {
-        printer.printBoletoCodBarras(pedido.getCodBarras());
-    }
-
     private int receberOpcaoValida(int opcaoMax, String msg) {
         printer.println(msg);
 
@@ -137,7 +105,7 @@ public class Loja {
 
     private Produto receberProdutoValido() {
         printer.print("Digite o nome do produto: ");
-        Produto produto = armazem.getProdutoByNome(scanner.nextLine());
+        Produto produto = carrinhoCompra.getProdItensByNome(scanner.nextLine());
         while (produto == null) {
             printer.println("Nome do produto errado!");
             printer.print("Digite o nome do produto: ");
@@ -159,5 +127,37 @@ public class Loja {
             }
         }
         return qtd;
+    }
+
+    private Cliente receberClienteValido() {
+        printer.print("Digite seu id: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        while (!bancoCliente.hasCliente(id)) {
+            printer.print("Erro! Digite seu id novamente: ");
+            id = Integer.parseInt(scanner.nextLine());
+        }
+        return bancoCliente.getClienteById(id);
+    }
+
+    private void imprimirBoleto(Pedido pedido) {
+        printer.printBoletoCodBarras(pedido.getCodBarras());
+    }
+
+    private OpcaoPagamento escolherTipoPag() {
+        int opcao = receberOpcaoValida(2, "Escolha um tipo de pagamento:\n1-Boleto\n2-Cartão");
+        if (opcao==1) return OpcaoPagamento.BOLETO;
+        if (opcao==2) return OpcaoPagamento.CARTAO;
+        return null;
+    }
+
+    private Map coletaArgPagCartao() {
+        Map argPagCartao = new HashMap();
+        printer.print("Digite o número do cartão: ");
+        String numCartao = scanner.nextLine();
+        printer.print("Digite a quantidade de parcelas: ");
+        int qtdParcelas = Integer.parseInt(scanner.nextLine());
+        argPagCartao.put(String.class, numCartao);
+        argPagCartao.put(Integer.class, qtdParcelas);
+        return argPagCartao;
     }
 }

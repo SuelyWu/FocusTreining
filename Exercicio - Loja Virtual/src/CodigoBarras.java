@@ -21,7 +21,6 @@ public class CodigoBarras {
         int min = (int) Math.pow(10, xDig-1);
         int max = (int) Math.pow(10, xDig);
         return String.valueOf(ThreadLocalRandom.current().nextLong(min, max));
-
     }
 
     private String getRandom14dig(double total) {

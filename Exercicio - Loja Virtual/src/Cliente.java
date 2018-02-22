@@ -9,7 +9,7 @@ public class Cliente {
 
     public Cliente(String nome, int id) {
         this.nome = nome;
-        this.id = id; // numero random de 5 digitos
+        this.id = id;
         listPedido = new LinkedList<>();
     }
 
