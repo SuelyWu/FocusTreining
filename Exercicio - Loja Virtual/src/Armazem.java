@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Armazem {
-    private Map<Categoria, Map<Integer, List<Produto>>> armazem;
+    private Map<ProdutoTipo, List<Produto>> armazem;
 
 
     public Armazem(){
@@ -13,46 +13,25 @@ public class Armazem {
         return Collections.unmodifiableMap(armazem);
     }
 
-    private Map getProdEmCategoria(Produto produto) {
-        Map map = armazem.get(produto.getCategoria());
-        if (map == null) {
-            map = new HashMap();
-        }
-        return map;
-    }
-
     private int getEstoqueProduto(Produto produto) {
-        Map<Integer, List<Produto>> map = armazem.get(produto.getCategoria());
-        List<Produto> list = map.get(produto.getCod());
+        List<Produto> list = armazem.get(produto.getProdutoTipo());
         return list.size();
     }
 
-    public void decrementarProduto(Produto produto) {
-        Categoria categoria = produto.getCategoria();
-        int cod = produto.getCod();
-        Map<Integer, List<Produto>> map = armazem.get(categoria);
-        List<Produto> list = map.get(cod);
-        if (list != null) {
-            list.remove(produto);
-            map.put(cod, list);
-            armazem.put(categoria, map);
+    public Produto getProdutoByNome(String produtoNome) {
+        List listTipoExistente = Arrays.asList(armazem.keySet().toArray());
+        for (int i = 0; i < listTipoExistente.size(); i++) {
+            ProdutoTipo produtoTipo = (ProdutoTipo)listTipoExistente.get(i);
+            List listProd = armazem.get(produtoTipo);
+            for (int j = 0; j < listProd.size(); j++) {
+                Produto produto = (Produto) listProd.get(j);
+                if (produto.getNome().equalsIgnoreCase(produtoNome)) {
+                    return produto;
+                }
+            }
         }
+        return null;
     }
-
-    private void incrementarProduto(Produto produto) {
-        Categoria categoria = produto.getCategoria();
-        int cod = produto.getCod();
-        Map<Integer, List<Produto>> map = armazem.get(categoria);
-        List<Produto> list = map.get(cod);
-        if (list == null) {
-            list = new LinkedList<>();
-        }
-        list.add(produto);
-        map.put(cod, list);
-        armazem.put(categoria, map);
-    }
-
-
 
     public boolean hasProdSuficiente(Produto produto, int qtdSolicitada) {
         return getEstoqueProduto(produto) >= qtdSolicitada;
@@ -60,10 +39,10 @@ public class Armazem {
 
     private void initialize() {
         List<Produto> produtoList = new LinkedList<>();
-        produtoList.add(new Produto(Categoria.MOVEL, 1001, "mesa redonda", 300));
-        produtoList.add(new Produto(Categoria.MOVEL, 1002, "mesa retangular", 400));
-        produtoList.add(new Produto(Categoria.ROUPA, 2001, "camiseta branca", 20));
-        produtoList.add(new Produto(Categoria.ROUPA, 2002, "camiseta preta", 20));
+        produtoList.add(new Produto(ProdutoTipo.MESA_REDONDA, "mesa redonda", 300));
+        produtoList.add(new Produto(ProdutoTipo.MESA_RETANGULAR, "mesa retangular", 400));
+        produtoList.add(new Produto(ProdutoTipo.ROUPA_BRANCA, "camiseta branca", 20));
+        produtoList.add(new Produto(ProdutoTipo.ROUPA_PRETA, "camiseta preta", 25));
         for (Produto produto : produtoList) {
             for (int i = 0; i < 20; i++) {
                 incrementarProduto(produto);
@@ -71,5 +50,26 @@ public class Armazem {
         }
     }
 
+    private void incrementarProduto(Produto produto) {
+        ProdutoTipo produtoTipo = produto.getProdutoTipo();
+        List<Produto> list = armazem.get(produtoTipo);
+        if (list == null) {
+            list = new LinkedList<>();
+        }
+        list.add(produto);
+        armazem.put(produtoTipo, list);
+    }
+
+    public void decrementarProduto(Produto produto, int qtd) {
+        ProdutoTipo produtoTipo = produto.getProdutoTipo();
+
+        List<Produto> list = armazem.get(produtoTipo);
+
+        for (int i = 0; i < qtd; i++) {
+            list.remove(0);
+        }
+        armazem.put(produtoTipo, list);
+
+    }
 
 }

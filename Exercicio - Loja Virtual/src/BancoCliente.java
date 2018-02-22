@@ -14,11 +14,14 @@ public class BancoCliente {
     }
 
     public boolean hasCliente(int clienteId) {
-        return clientes.stream().filter(c -> c.equals(clienteId)).collect(Collectors.toList()).isEmpty();
+        return !clientes.stream().filter(c -> c.equals(clienteId)).collect(Collectors.toList()).isEmpty();
     }
 
-    private boolean addCliente(String nome) {
-        int id = gerarId();
+    public Cliente getClienteById(int clienteId) {
+        return clientes.stream().filter(c -> c.equals(clienteId)).collect(Collectors.toList()).get(0);
+    }
+
+    private boolean addCliente(String nome, int id) {
         if (!hasCliente(id)) {
             clientes.add(new Cliente(nome, id));
             return true;
@@ -26,16 +29,11 @@ public class BancoCliente {
         return false;
     }
 
-    private int gerarId() {
-        Random random = new Random();
-        return random.nextInt(89999) + 10000;
-    }
-
     private void initialize(){
-        addCliente("Ana");
-        addCliente("Beatriz");
-        addCliente("Carlos");
-        addCliente("Daniel");
+        addCliente("Ana", 10001);
+        addCliente("Beatriz", 10002);
+        addCliente("Carlos", 10003);
+        addCliente("Daniel", 10004);
     }
 
 }

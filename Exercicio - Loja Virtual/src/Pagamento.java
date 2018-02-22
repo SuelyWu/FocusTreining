@@ -42,4 +42,8 @@ public class Pagamento {
     protected void setOpcaoPagamento(OpcaoPagamento opcaoPagamento) {
         this.opcaoPagamento = opcaoPagamento;
     }
+
+    public OpcaoPagamento getOpcaoPagamento() {
+        return opcaoPagamento;
+    }
 }

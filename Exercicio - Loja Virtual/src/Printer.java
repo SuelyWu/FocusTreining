@@ -3,6 +3,7 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Printer {
 
@@ -14,41 +15,50 @@ public class Printer {
         out = new PrintStream(outputStream);
     }
 
-    public void printProdutos(Map mapArmazem) {
-
-        List listCategExist = Arrays.asList(mapArmazem.keySet().toArray());
-        for (int i = 0; i < listCategExist.size(); i++) {
-            Categoria categoria = (Categoria) listCategExist.get(i);
-            out.println(categoria);
-            Map mapProdEmCategoria = (Map) mapArmazem.get(categoria);
-            List listCod = Arrays.asList(mapProdEmCategoria.keySet().toArray());
-            for (int j = 0; j < listCod.size(); j++) {
-                int codAtual = (int) listCod.get(j);
-                List listProdMsmCod = (List) mapProdEmCategoria.get(codAtual);
-                Produto produto = (Produto) listProdMsmCod.get(0);
-                out.println(String.format("\t%s\tR$ %.2f\t%d", produto.getNome(), produto.getPreco(), listProdMsmCod.size()));
-            }
-        }
-
+    public void print(Object obj) {
+        out.print(obj);
     }
-    /*
-    Produto         Preço Unitário      Quantidade      Subtotal
-    mesa redonda    R$ 300.00           2               R$ 600.00
 
-    0   1   2   3   4   5   6   7   8   9Total: R$ 600.00
-     */
+    public void println(Object obj) {
+        out.println(obj);
+    }
+
+    public void printProdutos(Map mapArmazem) {
+        out.println();
+        out.println("=====================================================================================");
+        out.println("PRODUTOS");
+        out.println("\tProduto\t\t\t\tPreço Unitário\t\tEstoque");
+        List listTipoExistente = Arrays.asList(mapArmazem.keySet().toArray());
+        listTipoExistente = (List) listTipoExistente.stream().sorted().collect(Collectors.toList());
+        for (int i = 0; i < listTipoExistente.size(); i++) {
+            ProdutoTipo produtoTipo = (ProdutoTipo) listTipoExistente.get(i);
+            List listProd = (List) mapArmazem.get(produtoTipo);
+            Produto produto = (Produto)listProd.get(i);
+            out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d", produto.getNome(), produto.getPreco(), listProd.size()));
+        }
+        out.println();
+    }
 
     public void printCarrinho(List listItens) {
+        out.println();
+        out.println("=====================================================================================");
         out.println("Carrinho de Compras:");
-        out.println("\tProduto\t\t\tPreço Unitário\t\tQuantidade\t\tSubtotal");
+
+        if (listItens.isEmpty()){
+            out.println("Seu carrinho está vazio!");
+            return;
+        }
+
+        out.println("\tProduto\t\t\t\tPreço Unitário\t\tQuantidade\t\tSubtotal");
         double total = 0;
         for (int i = 0; i < listItens.size(); i++){
-            ItemCompra itemCompra = (ItemCompra) listItens.get(i);
-            total += itemCompra.getSubtotal();
-            out.println(String.format("\t%s\tR$ %.2f\t\t\t%d\t\t\t\tR$ .2f",
-                    itemCompra.getProdNome(), itemCompra.getProdPreco(), itemCompra.getQtd(), itemCompra.getSubtotal()));
+            ItemPedido itemPedido = (ItemPedido) listItens.get(i);
+            total += itemPedido.getSubtotal();
+            out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d\t\t\t\tR$ %.2f",
+                    itemPedido.getProdNome(), itemPedido.getProdPreco(), itemPedido.getQtd(), itemPedido.getSubtotal()));
         }
-        out.println(String.format("\t\t\t\t\t\t\t\t\tTotal: R$ .2f", total));
+        out.println(String.format("\t\t\t\t\t\t\t\t\t\t\tTotal:\t\t\tR$ %.2f", total));
+        out.println();
     }
 
     public void printBoletoCodBarras(List listCodBarras) {
@@ -57,13 +67,7 @@ public class Printer {
             String parteAtual = String.valueOf(listCodBarras.get(i));
             out.print(parteAtual + " ");
         }
-        System.out.println();
-        /*
-    Codigo de barras eh composto por 5 partes
-    00000.00000 00000.00000 00000.00000 0 00000000000000
-    parte1      parte2      parte3      4   parte5
-    List        List        List
-     */
+        out.println();
     }
 
 }

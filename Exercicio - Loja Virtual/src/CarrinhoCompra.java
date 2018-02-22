@@ -1,37 +1,51 @@
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CarrinhoCompra {
 
-    private List<ItemCompra> itens = new LinkedList<>();
+    private List<ItemPedido> itens = new LinkedList<>();
+
+    public void ajustItemQtd(Produto produto, int qtdNova) {
+        ItemPedido itemPedido = new ItemPedido(produto, qtdNova);
+        List<ItemPedido> matchedItens = itens.stream().filter(item -> item.equals(itemPedido)).collect(Collectors.toList());
+        ItemPedido itemAntigo = matchedItens.get(0);
+        if (itemAntigo.getQtd() < qtdNova) {
+            addItem(produto, qtdNova - itemAntigo.getQtd());
+        } else {
+            delItem(produto, itemAntigo.getQtd() - qtdNova);
+        }
+    }
 
     public void addItem(Produto produto, int qtd) {
-        ItemCompra itemAdd = new ItemCompra(produto, qtd);
-        List<ItemCompra> matchedItens = itens.stream().filter(item -> item.equals(itemAdd)).collect(Collectors.toList());
+        ItemPedido itemAdd = new ItemPedido(produto, qtd);
+        List<ItemPedido> matchedItens = itens.stream().filter(item -> item.equals(itemAdd)).collect(Collectors.toList());
         if (matchedItens.isEmpty()) {
             itens.add(itemAdd);
         } else {
-            ItemCompra itemCompra = matchedItens.get(0);
-            itens.remove(itemCompra);
-            itemCompra.incrementarQtd(qtd);
-            itens.add(itemCompra);
+            ItemPedido itemPedido = matchedItens.get(0);
+            itens.remove(itemPedido);
+            for (int i = 0; i < qtd; i++) {
+                itemPedido.incrementarQtd();
+            }
+            itens.add(itemPedido);
         }
     }
 
     public boolean delItem(Produto produto, int qtd) {
-        ItemCompra itemDel = new ItemCompra(produto, qtd);
-        List<ItemCompra> matchedItens = itens.stream().filter(item -> item.equals(itemDel)).collect(Collectors.toList());
+        ItemPedido itemDel = new ItemPedido(produto, qtd);
+        List<ItemPedido> matchedItens = itens.stream().filter(item -> item.equals(itemDel)).collect(Collectors.toList());
         if (!matchedItens.isEmpty()) {
-            ItemCompra itemCompra = matchedItens.get(0);
-            ItemCompra itemCompra1 = itemCompra;
-            itens.remove(itemCompra);
-            if (!itemCompra.decrementarQtd(qtd)) {
-                itens.add(itemCompra1);
+            ItemPedido itemPedido = matchedItens.get(0);
+            ItemPedido itemPedido1 = itemPedido;
+            itens.remove(itemPedido);
+            if (!itemPedido.decrementarQtd(qtd)) {
+                itens.add(itemPedido1);
                 return false;
             }
-            itens.add(itemCompra);
+            itens.add(itemPedido);
             return true;
         }
         return false;
@@ -43,15 +57,13 @@ public class CarrinhoCompra {
 
     public double getTotalCarrinho() {
          double total = 0;
-         for (ItemCompra item : itens) {
+         for (ItemPedido item : itens) {
              total += item.getSubtotal();
          }
          return total;
     }
 
-    public boolean finalizarCompra(Cliente cliente, Pagamento pagamento) {
-        // a implementar
-        return false;
-
+    public void limparCarrinho() {
+        this.itens = new LinkedList<>();
     }
 }
