@@ -4,34 +4,34 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class CodigoBarras {
+public class BarCode {
 
-    private List codigoBarras;
+    private List barCode;
 
-    public CodigoBarras(double total) {
-        codigoBarras = new LinkedList();
-        codigoBarras.add(getRandomXdig(5) + "." + getRandomXdig(5));
-        codigoBarras.add(getRandomXdig(5) + "." + getRandomXdig(5));
-        codigoBarras.add(getRandomXdig(5) + "." + getRandomXdig(5));
-        codigoBarras.add(getRandomXdig(1));
-        codigoBarras.add(getRandom14dig(total));
+    public BarCode(double total) {
+        barCode = new LinkedList();
+        barCode.add(getRandomXDig(5) + "." + getRandomXDig(5));
+        barCode.add(getRandomXDig(5) + "." + getRandomXDig(5));
+        barCode.add(getRandomXDig(5) + "." + getRandomXDig(5));
+        barCode.add(getRandomXDig(1));
+        barCode.add(getRandom14Dig(total));
     }
 
-    private String getRandomXdig(int xDig) {
+    private String getRandomXDig(int xDig) {
         int min = (int) Math.pow(10, xDig-1);
         int max = (int) Math.pow(10, xDig);
         return String.valueOf(ThreadLocalRandom.current().nextLong(min, max));
     }
 
-    private String getRandom14dig(double total) {
+    private String getRandom14Dig(double total) {
         BigInteger bigInteger = BigInteger.valueOf(ThreadLocalRandom.current().nextInt(1000, 10000));
         bigInteger = bigInteger.multiply(new BigInteger("10000000000"));
         bigInteger = bigInteger.add(new BigInteger(String.valueOf((int)(total*100))));
         return String.valueOf(bigInteger);
     }
 
-    public List getCodBarras() {
-        return Collections.unmodifiableList(codigoBarras);
+    public List getBarCode() {
+        return Collections.unmodifiableList(barCode);
     }
 
 

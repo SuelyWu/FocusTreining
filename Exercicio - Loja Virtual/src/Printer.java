@@ -21,48 +21,48 @@ public class Printer {
         out.println(obj);
     }
 
-    public void printProdutos(Map mapArmazem) {
+    public void printProducts(Map mapProducts) {
         out.println();
         out.println("=====================================================================================");
         out.println("PRODUTOS");
-        out.println("\tProduto\t\t\t\tPreço Unitário\t\tEstoque");
-        List listTipoExistente = Arrays.asList(mapArmazem.keySet().toArray());
-        listTipoExistente = (List) listTipoExistente.stream().sorted().collect(Collectors.toList());
-        for (int i = 0; i < listTipoExistente.size(); i++) {
-            ProdutoTipo produtoTipo = (ProdutoTipo) listTipoExistente.get(i);
-            List listProd = (List) mapArmazem.get(produtoTipo);
-            Produto produto = (Produto)listProd.get(i);
-            out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d", produto.getNome(), produto.getPreco(), listProd.size()));
+        out.println("\tProduct\t\t\t\tPreço Unitário\t\tStore");
+        List listExistTypes = Arrays.asList(mapProducts.keySet().toArray());
+        listExistTypes = (List) listExistTypes.stream().sorted().collect(Collectors.toList());
+        for (int i = 0; i < listExistTypes.size(); i++) {
+            ProductType productType = (ProductType)listExistTypes.get(i);
+            List listProd = (List)mapProducts.get(productType);
+            Product product = (Product)listProd.get(i);
+            out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d", product.getName(), product.getPrice(), listProd.size()));
         }
         out.println();
     }
 
-    public void printCarrinho(List listItens) {
+    public void printShoppingCart(List listItems) {
         out.println();
         out.println("=====================================================================================");
         out.println("Carrinho de Compras:");
 
-        if (listItens.isEmpty()){
+        if (listItems.isEmpty()){
             out.println("Seu carrinho está vazio!");
             return;
         }
 
-        out.println("\tProduto\t\t\t\tPreço Unitário\t\tQuantidade\t\tSubtotal");
+        out.println("\tProduct\t\t\t\tPreço Unitário\t\tQuantidade\t\tSubtotal");
         double total = 0;
-        for (int i = 0; i < listItens.size(); i++){
-            ItemPedido itemPedido = (ItemPedido) listItens.get(i);
-            total += itemPedido.getSubtotal();
+        for (int i = 0; i < listItems.size(); i++){
+            OrderItem orderItem = (OrderItem) listItems.get(i);
+            total += orderItem.getSubtotal();
             out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d\t\t\t\tR$ %.2f",
-                    itemPedido.getProdNome(), itemPedido.getProdPreco(), itemPedido.getQtd(), itemPedido.getSubtotal()));
+                    orderItem.getProdName(), orderItem.getProdPrice(), orderItem.getQtt(), orderItem.getSubtotal()));
         }
         out.println(String.format("\t\t\t\t\t\t\t\t\t\t\tTotal:\t\t\tR$ %.2f", total));
         out.println();
     }
 
-    public void printBoletoCodBarras(List listCodBarras) {
+    public void printBilletBarCode(List listBarCode) {
         out.println("Código de barras:");
-        for (int i = 0; i < listCodBarras.size(); i++) {
-            String parteAtual = String.valueOf(listCodBarras.get(i));
+        for (int i = 0; i < listBarCode.size(); i++) {
+            String parteAtual = String.valueOf(listBarCode.get(i));
             out.print(parteAtual + " ");
         }
         out.println();

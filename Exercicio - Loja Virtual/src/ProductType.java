@@ -1,4 +1,4 @@
-public enum ProdutoTipo {
+public enum ProductType {
     MESA_REDONDA, MESA_RETANGULAR, ROUPA_BRANCA, ROUPA_PRETA;
 
 

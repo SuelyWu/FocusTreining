@@ -2,15 +2,15 @@ Criação de uma loja virtual com os requisitos:
 
 1. Listagem de produtos
 
-2. Adição de produtos ao carrinho de compras (produtoTipo e quantidade)
+2. Adição de produtos ao carrinho de compras (productType e quantidade)
 
 3. Visualização do carrinho de compras
 
 4. Checkout:
 
-  4.1. Identificação do cliente (email... precadastrado)
+  4.1. Identificação do client (email... precadastrado)
 
-  4.2. Forma de pagamento
+  4.2. Forma de paymentOption
 
     4.2.1. Se cartão, receber o número do cartão e quantidade de parcelas
 
@@ -23,38 +23,38 @@ RACIOCINIO 22022018
 Bem vindo
 
 #Voce quer:
-	Ver lista produto
+	Ver lista product
 	Ver carrinho
 
-/Ver lista produto
+/Ver lista product
 	#...
 	#Voce quer:
 		Add item
 		Ver carrinho
 
 	/Add item
-		# digite nome produto
-		# digite qtd desejada
+		# digite name product
+		# digite qtt desejada
 		>> additem
 
 
 /Ver carrinho
 	#...
 	#Voce quer:
-		Ver lista produto
-		Ajustar qtd item
+		Ver lista product
+		Ajustar qtt item
 		Finalizar compra
 
-	/Ajustar qtd item
+	/Ajustar qtt item
 		# qual item a ajustar
-		# digite nova qtd
+		# digite nova qtt
 		>> ajustar
 
 	/Finalizar compra
 		# Informe seu id
-		# Tipo pagamento
+		# Tipo paymentOption
 			/Cartao
-				# informe numCartao
+				# informe cardNumber
 				# informe qtdParcelas
 		>> finalizar compra
 
@@ -68,49 +68,49 @@ Bem vindo
 
 RACIOCINIO 21022018
 
-Uma classe Produto
-    - produtoTipo : produtoTipo
+Uma classe Product
+    - productType : productType
     - codigo : int
 	- nomeProduto: String
 	- precoProduto: double
 	> getId, getCategoria, getPreco
-Uma classe Armazem para armazenar produtos pre cadastrados
-	- armazem: Map<ProdutoTipo, List<Produto>>
+Uma classe Store para armazenar produtos pre cadastrados
+	- store: Map<ProductType, List<Product>>
 	> getProdutos, getEstoqueProduto, decrementarProduto, incrementarProduto, hasProdSuficiente
-Uma classe Cliente
+Uma classe Client
 	- nomeCliente: string
 	- codigo: int
-	- carrinhoCompra
+	- shoppingCart
 	> getId, equals
-Uma classe BancoCliente para armazenar clientes pre cadastrados
-	- clientes: List<Cliente>
+Uma classe ListClients para armazenar clientes pre cadastrados
+	- clientes: List<Client>
 	> hasCliente, addCliente, gerarId
-Uma classe CarrinhoCompra
-	- itens: List<ItemPedido>
+Uma classe ShoppingCart
+	- itens: List<OrderItem>
 	> addItem, delItem, getItens, finalizarCompra !!a implementar!!
-Uma classe ItemPedido para representar produtoTipo selecionado e qtd numa compra
-	- produtoTipo: ProdutoTipo
-	- qtd: int
+Uma classe OrderItem para representar productType selecionado e qtt numa compra
+	- productType: ProductType
+	- qtt: int
 	> incrementarItem, decrementarItem, getTotalItem, equals, getIdProduto
-Uma classe Pedido para representar uma compra finalizada
-    - cliente
-	- carrinhoCompra
-	- pagamento
-Uma classe Pagamento
+Uma classe Order para representar uma compra finalizada
+    - client
+	- shoppingCart
+	- paymentOption
+Uma classe PaymentOption
     - total : double
     - qtdParcelas: int
     - valorParcelas: List<Double>
     - parcPagas : List<Boolean>
-	Uma classe PagCartao
+	Uma classe PaymentCreditCard
 		- cartao: Cartao
 		> validarNumCartao, setNumCartao, setQtdParcelas
-	Uma classe PagBoleto
+	Uma classe PaymentBillet
 		- listCodBarras : List<CodigoBarra>
 		> gerarCodBarras
 Uma classe CodigoBarra
     - 5 partes : long
 Uma classe Printer para imprimir sout
-	- print(List<List<Produto>>) (List<ItemPedido)
+	- print(List<List<Product>>) (List<OrderItem)
 
 
 
@@ -118,42 +118,42 @@ Uma classe Printer para imprimir sout
 
 RACIOCINIO INICIAL
 
-Uma classe Produto
+Uma classe Product
 	- nomeProduto: String
 	- precoProduto: double
 	>
-Uma classe Armazem para armazenar produtos pre cadastrados
-	- armazem: Map<ProdutoTipo, List<Produto>>
+Uma classe Store para armazenar produtos pre cadastrados
+	- store: Map<ProductType, List<Product>>
 	> listarProdutos, decrementarProduto, incrementarProduto
-Uma classe Cliente
+Uma classe Client
 	- nomeCliente: string
 	- endereco: string
 	- emailCliente: string
 	- idCliente: int
 	> equals
-Uma classe BancoCliente para armazenar clientes pre cadastrados
-	- clientes: List<Cliente> 
+Uma classe ListClients para armazenar clientes pre cadastrados
+	- clientes: List<Client>
 	> validarCliente
-Uma classe CarrinhoCompra
-	- itens: List<ItemPedido>
+Uma classe ShoppingCart
+	- itens: List<OrderItem>
 	> addItem, delItem, listarItens, checkout
-Uma classe ItemPedido para representar produtoTipo selecionado e qtd numa compra
-	- produtoTipo: ProdutoTipo
-	- qtd: int
+Uma classe OrderItem para representar productType selecionado e qtt numa compra
+	- productType: ProductType
+	- qtt: int
 	- totalItem: double
-Uma classe Pedido para representar uma compra finalizada
-	- carrinhoCompra
-	- pagamento
-Uma classe Pagamento
-	Uma classe PagCartao
+Uma classe Order para representar uma compra finalizada
+	- shoppingCart
+	- paymentOption
+Uma classe PaymentOption
+	Uma classe PaymentCreditCard
 		- cartao: Cartao
 		- qtdParcelas: int
 		> validarNumCartao, setNumCartao, setQtdParcelas
-	Uma classe PagBoleto
+	Uma classe PaymentBillet
 		- codigoBarras: int
 		> gerarCodBarras
 Uma classe Printer para imprimir sout 
-	- print(List<List<Produto>>) (List<ItemPedido)
+	- print(List<List<Product>>) (List<OrderItem)
 
 
 
