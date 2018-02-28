@@ -1,5 +1,5 @@
 # FocusTreining
-Exercícios de treino Focus
+Exercícios de treino na Focus
 
 Exercício 1 - Contato  
 Exercício 2 - Caixa Eletrônico (falta implementar MVC)  
