@@ -32,6 +32,7 @@ public class ShopFacade {
         sessionShowProducts();
     }
 
+
     private void sessionShowProducts() {
         printer.printProducts(store.getProducts());
         int option = getValidOption(2, "Você quer:\n1-Adicionar item\n2-Ver carrinho de compras");
@@ -79,6 +80,7 @@ public class ShopFacade {
         sessionShowShoppingCart();
         sessionShowProducts();
     }
+
 
     private Product getValidProduct() {
         printer.print("Digite o nome do produto: ");

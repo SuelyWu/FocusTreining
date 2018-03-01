@@ -8,10 +8,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BarCode {
 
-    private List barCode;
+    private List<String> barCode;
 
     public BarCode(double total) {
-        barCode = new LinkedList();
+        barCode = new LinkedList<>();
         barCode.add(getRandomXDig(5) + "." + getRandomXDig(5));
         barCode.add(getRandomXDig(5) + "." + getRandomXDig(5));
         barCode.add(getRandomXDig(5) + "." + getRandomXDig(5));

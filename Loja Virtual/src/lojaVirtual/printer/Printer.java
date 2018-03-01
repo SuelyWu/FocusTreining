@@ -19,12 +19,12 @@ public class Printer {
         out = new PrintStream(outputStream);
     }
 
-    public void print(Object obj) {
-        out.print(obj);
+    public void print(String str) {
+        out.print(str);
     }
 
-    public void println(Object obj) {
-        out.println(obj);
+    public void println(String str) {
+        out.println(str);
     }
 
     public void printProducts(List<ProductHolder> storeList) {
