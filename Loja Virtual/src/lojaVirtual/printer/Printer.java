@@ -32,7 +32,7 @@ public class Printer {
         out.println("=====================================================================================");
         out.println("PRODUTOS");
         out.println("\tProduto\t\t\t\tPreço Unitário\t\tEstoque");
-        storeList.forEach(o -> out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d",
+        storeList.forEach(o -> out.println(String.format("\t%s\t\tR$ %,10.2f\t\t%5d",
                         o.getProductName(),
                         o.getProductPrice(),
                         o.getQtt())));
@@ -51,7 +51,7 @@ public class Printer {
 
         out.println("\tProduto\t\t\t\tPreço Unitário\t\tQuantidade\t\tSubtotal");
         double total = 0;
-        listItems.forEach(o -> out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d\t\t\t\tR$ %.2f",
+        listItems.forEach(o -> out.println(String.format("\t%s\t\tR$ %,10.2f\t\t%5d\t\t\tR$ %,10.2f",
                 ((ProductHolder)o).getProductName(),
                 ((ProductHolder)o).getProductPrice(),
                 ((ProductHolder)o).getQtt(),
@@ -59,7 +59,7 @@ public class Printer {
         for (Object o : listItems) {
             total += ((ProductHolder)o).getSubtotal();
         }
-        out.println(String.format("\t\t\t\t\t\t\t\t\t\t\tTotal:\t\t\tR$ %.2f", total));
+        out.println(String.format("\t\t\t\t\t\t\t\t\t\t\tTotal:\t\t\tR$ %,10.2f", total));
         out.println();
     }
 
@@ -76,7 +76,7 @@ public class Printer {
         out.println("\nItems comprados:");
         out.println("\tProduto\t\t\t\tPreço Unitário\t\tQuantidade\t\tSubtotal");
         double total = 0;
-        listItems.forEach(o -> out.println(String.format("\t%s\t\tR$ %.2f\t\t\t%d\t\t\t\tR$ %.2f",
+        listItems.forEach(o -> out.println(String.format("\t%s\t\tR$ %,10.2f\t\t%5d\t\t\t\tR$ %,10.2f",
                 ((ProductHolder)o).getProductName(),
                 ((ProductHolder)o).getProductPrice(),
                 ((ProductHolder)o).getQtt(),
@@ -84,7 +84,7 @@ public class Printer {
         for (Object o : listItems) {
             total += ((ProductHolder)o).getSubtotal();
         }
-        out.println(String.format("\t\t\t\t\t\t\t\t\t\t\tTotal:\t\t\tR$ %.2f", total));
+        out.println(String.format("\t\t\t\t\t\t\t\t\t\t\tTotal:\t\t\tR$ %,10.2f", total));
         out.println("*************************************************************************************");
 
     }
@@ -100,13 +100,13 @@ public class Printer {
         out.println();
         out.println("Número de cartão: " + payment.getCardNumber());
         out.println("Quantidade parcelas: " + payment.getTimesToPay());
-        out.println(String.format("Valor parcela: R$ %.2f", payment.getValorParcela()));
+        out.println(String.format("Valor parcela: R$ %,10.2f", payment.getValorParcela()));
     }
 
     private void printBillet(PaymentBillet payment) {
         out.println();
         List listBarCode = payment.getBarCode();
-        out.println(String.format("\nValor do Boleto: R$ %.2f", payment.getValorParcela()));
+        out.println(String.format("\nValor do Boleto: R$ %,10.2f", payment.getValorParcela()));
         out.println("Código de barras: ");
         for (int i = 0; i < listBarCode.size(); i++) {
             String actualPart = String.valueOf(listBarCode.get(i));

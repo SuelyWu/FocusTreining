@@ -18,7 +18,7 @@ public class Store {
     }
 
     private void generateInitialProducts() {
-        registerProduct("MESA001", "Mesa redonda", 300, 20);
+        registerProduct("MESA001", "Mesa redonda", 30000, 20);
         registerProduct("MESA002", "Mesa retangular", 400, 20);
         registerProduct("ROUPA001", "Camiseta branca", 20, 20);
         registerProduct("ROUPA002", "Camiseta preta", 25, 20);

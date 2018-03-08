@@ -1,6 +1,6 @@
 package lojaVirtual.payment;
 
-public class Payment {
+public abstract class Payment {
 
     private PaymentOption paymentOption;
     private final double total;
