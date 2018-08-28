@@ -1,4 +1,4 @@
-# FocusTreining
+# FocusTraining
 Exercícios de treino na Focus
 
 Exercício 1 - Contato  
